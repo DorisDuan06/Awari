@@ -55,3 +55,61 @@ The first line in the setup file defines the current scores for players 1 and 2 
     4 4 4 4 4 4 
 
 Note we may use different board states in testing. When the game is run with no parameters, it is a two-human-player practice game with the default initial board setup.
+
+
+
+The studentAI.java assume the AI to be player 1. This file will extend the abstract Player class. It implemented:
+1. Minimax search with alpha-beta pruning
+2. Cut-off search at a fixed depth limit
+3. A static board evaluation (SBE) function
+
+Specifically, it implemented five functions:
+1. public void move (BoardState state);
+2. public int alphabetaSearch(BoardState state, int maxDepth);
+3. public int maxValue(BoardState state, int maxDepth, int currentDepth, int alpha, int beta);
+4. public int minValue(BoardState state, int maxDepth, int currentDepth, int alpha, int beta);
+5. private int sbe(BoardState state);
+
+More details on these five functions are given below.
+
+1. public void move (BoardState state);
+This is a wrapper function for alpha-beta search. It should use alpha-beta search to update the data member move (which will be returned by the getMove() method to the Match class that is controlling the game environment). Since the whole search space for Awari is extremely large, it will cut off the search at some fixed depth limit, which is specified by the maxDepth class member. There is a 10-second time limit to calculate each move.
+
+2. public int alphabetaSearch(BoardState state, int maxDepth);
+This function will start the alpha-beta search. The detailed descriptions of input and output are given below:
+@param state The board state for the current player (the MAX player). The pits for the current player are always in the lower row, and that the lower row is player 1.
+@param maxDepth The maximum search depth allowed.
+@return Return the best move that leads to the state that gives the maximum SBE value for the current player; returns the move with the smallest index in the case of ties. The value of the move should be in the range [0, 5], with 0 representing the leftmost pit.
+
+3. public int maxValue(BoardState state, int maxDepth, int currentDepth, int alpha, int beta);
+This function will search for the minimax value associated with the best move for the MAX player. The search should be cut off when the current depth equals to the maximum allowed depth. It is important to note that it will also call the SBE function to evaluate the game state when the game is over, i.e., when someone has won the game. The only condition for determining a leaf node (besides having reached maximin depth) is that there are no legal moves for the player to make, effectively ending the game at that state. The detailed descriptions of input and output are:
+@param state The game state that the MAX player is currently searching from
+@param maxDepth The maximum search depth allowed
+@param currentDepth The current depth in the search tree
+@param alpha The α value
+@param beta The β value
+@return The minimax value corresponding to the best move for the MAX player
+
+4. public int minValue(BoardState state, int maxDepth, int currentDepth, int alpha, int beta);
+This function is similar to maxValue except this function returns the best value for the MIN player.
+
+5. private int sbe(BoardState state);
+This function takes a board state as input and returns its SBE value. Use the following method: Return the number of stones in the storehouse of the current player minus the number of stones in the opponent’s storehouse. Always assume the current player is player 1.
+
+
+
+BoardState class:
+The following public members and methods are important:
+
+1. int[] score
+This is an array with two indices. score[0] contains the number of stones in player 1’s storehouse, and score[2] contains the number of stones in player 2’s storehouse.
+
+2. boolean isLegalMove(int player, int move)
+This method returns a Boolean that indicates whether or not a proposed move is legal. 
+The move parameter is the proposed pit from which to move stones. It must be an integer between 0 and 5 inclusive, with each index representing one of the six pits you can start a move from, from left to right on the bottom row. The player parameter indicates the player who is proposing to make that move. It must be either 1 or 2.
+
+3. BoardState applyMove(int player, int move)
+This method similar to isLegalMove except that it returns a new boardState with a move applied. It does NOT check if the proposed move is legal before performing it.
+
+4. String toString()
+This method will print out the current board, with sides labeled. This method is to test the code.
