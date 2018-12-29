@@ -3,9 +3,10 @@ This project implemented the Alpha-Beta pruning algorithm to play a two-player g
  
 ## RULES
 Awari is an Ashanti abstract strategy game in the Mancala family of board games (pit and pebble games) played worldwide. Here we will use slightly modified Abapa rules set out by Awari International for tournaments. They are as follows:
+
 __The objective__ is to win stones by placing your last stone being moved into a pit of your opponent that already contains one or two stones, making the final count two or three, and then capturing and placing these stones into your storehouse.
 
-#### Board and initial setup
+### Board and initial setup
 The board is comprised of twelve pits. Each side belongs to one player. The numbers in each pit represents the number of stones in that pit.
 <div align= "center">
 <img src="./images/1.jpg" />
