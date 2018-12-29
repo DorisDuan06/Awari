@@ -85,9 +85,12 @@ This is a wrapper function for alpha-beta search. It should use alpha-beta searc
 2. public int alphabetaSearch(BoardState state, int maxDepth);
 ```
 This function will start the alpha-beta search. The detailed descriptions of input and output are given below:
-@param state The board state for the current player (the MAX player). The pits for the current player are always in the lower row, and that the lower row is player 1.
-@param maxDepth The maximum search depth allowed.
-@return Return the best move that leads to the state that gives the maximum SBE value for the current player; returns the move with the smallest index in the case of ties. The value of the move should be in the range [0, 5], with 0 representing the leftmost pit.
+
+`@param state` The board state for the current player (the MAX player). The pits for the current player are always in the lower row, and that the lower row is player 1.
+
+`@param maxDepth` The maximum search depth allowed.
+
+`@return` Return the best move that leads to the state that gives the maximum SBE value for the current player; returns the move with the smallest index in the case of ties. The value of the move should be in the range [0, 5], with 0 representing the leftmost pit.
 ```Java
 3. public int maxValue(BoardState state, int maxDepth, int currentDepth, int alpha, int beta);
 ```
